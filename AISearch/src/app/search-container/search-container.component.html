@@ -1,0 +1,6 @@
+<form [formGroup]="searchForm" (submit)="doSearch()">
+  <div class="form-group">
+    <input type="text" formControlName="searchTerm"/>
+    <button type="submit" >Search</button>
+  </div>
+</form>
