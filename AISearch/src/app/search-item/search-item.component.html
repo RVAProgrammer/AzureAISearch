@@ -1,0 +1,13 @@
+<div>
+    <h2>{{manual?.metadata_storage_name}}</h2>
+    <div>Score : {{manual?.score}}</div>
+    <div><strong>Content:</strong><br/>
+        {{manual?.Content}}
+    </div>
+    <div>
+        <strong>Highlights</strong><br/>
+        @for(highlight of  this.manual?.highlights; track highlight){
+            <div [innerHTML]="highlight"></div>
+        }
+    </div>
+</div>

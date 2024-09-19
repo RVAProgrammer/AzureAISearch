@@ -7,9 +7,9 @@ import { VideoGameManual } from '../models/Manual';
 export class SearchService {
   constructor() {}
 
-  async search(searchTerm: string | undefined) {
+  async search(searchTerm: string | undefined) :Promise<VideoGameManual[]> {
     const keyCred = new AzureKeyCredential(
-      'VatVr53R7fkf8yrgU6VFQqfyrcUv3yEdVEMDSogBzVAzSeDD7beW'
+      ''
     );
 
     const selectFields :SelectFields<VideoGameManual> []= ["Content", 'id', 'metadata_storage_name',  'metadata_storage_size']
@@ -23,12 +23,34 @@ export class SearchService {
     const results  = await client.search(searchTerm, {
       select:     selectFields,
       searchFields: ["Content"],
-      includeTotalCount: true
+      includeTotalCount: true,
+      highlightFields : "Content",
+      highlightPostTag : "</h1>",
+      highlightPreTag: "<h1>"
     });
+    
 
-    for await (const result of results.results){
-      var manuel = <VideoGameManual> result.document;
-      console.log(manuel.metadata_storage_name);
-    }
+    let searchResults :VideoGameManual[] = [];
+    
+    for await (const result of results.results){      
+      console.log(result);
+      var manual = <VideoGameManual> result.document;
+      manual.score = result.score;      
+      
+      if(result.highlights  !== undefined){
+        const highlights = result.highlights;
+        if(highlights){
+          Object.keys(highlights).forEach((key) =>{
+            const highlightContent = highlights[key];
+            manual.highlights = highlightContent;
+           });
+        }
+        
+      }
+      
+      searchResults.push(manual);
+        }
+
+    return searchResults;
   }
 }

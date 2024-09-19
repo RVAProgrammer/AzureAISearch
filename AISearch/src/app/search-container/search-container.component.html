@@ -4,3 +4,12 @@
     <button type="submit" >Search</button>
   </div>
 </form>
+
+
+
+<div>
+  @for(result of this.searchResults; track result.id) {
+    <app-search-item [manual]="result" ></app-search-item>
+  }
+
+</div>
