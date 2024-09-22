@@ -1,13 +1,28 @@
-<div>
-    <h2>{{manual?.metadata_storage_name}}</h2>
-    <div>Score : {{manual?.score}}</div>
-    <div><strong>Content:</strong><br/>
-        {{manual?.Content}}
-    </div>
+<mat-card appearance="outlined" class="manual-card">
+  <mat-card-header>
+    <div class="row justify-content-between item-header">
+        <div class="col"><h2>{{ manual?.metadata_storage_name }}</h2></div>
+        <div class="col text-align-right">Score : {{ manual?.score }}</div>
+    </div>    
+
+</mat-card-header>
+  <mat-card-content>    
+    <!-- <div>
+      <strong>Content:</strong><br />
+      {{ manual?.Content }}
+    </div> -->
     <div>
-        <strong>Highlights</strong><br/>
-        @for(highlight of  this.manual?.highlights; track highlight){
-            <div [innerHTML]="highlight"></div>
-        }
+      <strong>Highlights</strong><br />
+      @for(highlight of this.manual?.highlights; track highlight){
+      <div [innerHTML]="highlight"></div>
+      }
     </div>
-</div>
+  </mat-card-content>
+  <mat-card-footer class="item-footer">
+    <div class="row justify-content-between">
+        <div class="col">{{manual?.metadata_content_type}}</div>
+        <div class="col text-align-right">{{manual?.metadata_storage_size}}</div>
+    </div>
+  </mat-card-footer>
+</mat-card>
+<br/>

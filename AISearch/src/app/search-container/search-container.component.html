@@ -1,15 +1,20 @@
-<form [formGroup]="searchForm" (submit)="doSearch()">
-  <div class="form-group">
-    <input type="text" formControlName="searchTerm"/>
-    <button type="submit" >Search</button>
+<div class="container-fluid">
+  <form [formGroup]="searchForm" (submit)="doSearch()">
+    <div class="row">
+      <div class="col-3">
+        <mat-form-field class="search-field">
+          <mat-label>Search</mat-label>
+          <input matInput placeholder="Search" formControlName="searchTerm" />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <button mat-raised-button type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+  <div class="results-list">
+    @for(result of this.searchResults; track result.id) {
+    <app-search-item [manual]="result"></app-search-item>
+    }
   </div>
-</form>
-
-
-
-<div>
-  @for(result of this.searchResults; track result.id) {
-    <app-search-item [manual]="result" ></app-search-item>
-  }
-
 </div>
